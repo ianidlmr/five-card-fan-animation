@@ -1,0 +1,155 @@
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  }
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit; }
+
+* {
+  margin: 0;
+  padding: 0; }
+
+@keyframes deck {
+	80% {
+		transform: rotate(0deg);
+	}
+	82% {
+		transform: rotate(10deg);
+	}
+	90% {
+		transform: rotate(-5deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+@keyframes deck__sheet_5 {
+	0% {
+		transform: rotate(0deg);
+	}
+	30% {
+		transform: rotate(-40deg);
+	}
+	40% {
+		transform: rotate(10deg);
+	}
+	80% {
+		transform: rotate(10deg);
+	}
+}
+
+@for $i from 1 through 4 {
+
+	$multiplier: 4 - $i;
+
+	@keyframes deck__sheet_#{ $i } {
+		0% {
+			opacity: 0;
+			transform: rotate(#{ 40 + $multiplier * 80}deg);
+		}
+		#{ 35 + $multiplier * 2 }% {
+			opacity: 0;
+			transform: rotate(#{ 40 + $multiplier * 80 }deg);
+		}
+		#{ 50 + $multiplier * 2 }% {
+			opacity: 1;
+			transform: rotate(#{ 60 + $multiplier * 80 }deg);
+		}
+		80% {
+			opacity: 1;
+			transform: rotate(#{ 60 + $multiplier * 80 }deg);
+		}
+		100% {
+			opacity: 0;
+			transform: rotate(0deg);
+		}
+	}
+
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+
+#two svg {
+  max-height: 100%;
+}
+
+.deck {
+
+	width: 36px;
+	height: 130px;
+
+	transform-origin: center 90.5%;
+
+	animation-name: deck;
+	animation-fill-mode: both;
+	animation-iteration-count: infinite;
+	animation-duration: 3s;
+
+	&__sheet {
+		position: absolute;
+		width: 86px;
+		height: 120px;
+		// border: 20px solid #DFBBB1;
+		box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+		border-radius: 8px;
+		will-change: transform;
+
+		transform-origin: center 90.5%;
+
+		animation-fill-mode: both;
+		animation-iteration-count: infinite;
+		animation-duration: 3s;
+
+		&::after {
+			// content: '';
+			position: absolute;
+			bottom: 6px;
+			left: 50%;
+			width: 12px;
+			height: 12px;
+			background: white;
+			border-radius: 100%;
+			transform: translateX(-50%);
+		}
+
+		&--five {
+			background: white;
+		}
+
+		&--four {
+			background: white;
+		}
+
+		&--three {
+			background: white;
+		}
+
+		&--two {
+			background: white;
+		}
+
+		&--one {
+			background: white;
+		}
+
+		@for $i from 1 through 5 {
+
+			&:nth-child(#{ $i }) {
+				animation-name: deck__sheet_#{ $i };
+			}
+
+		}
+	}
+
+}
